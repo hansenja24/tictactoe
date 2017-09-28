@@ -5,16 +5,23 @@
 }
 
 .col-md-4:hover{
-  background-color: #6e97d8
+  background-color: #6e97d8;
 }
 
+#red{
+  display: none;
+  color: #d33532;
+}
 
+#blue{
+  color: #072351;
+}
 
 
 .resultX {
-  background-color: #072351
+  background-color: #072351;
 }
 
 .resultO{
-  background-color: #d33532
+  background-color: #d33532;
 }

@@ -62,6 +62,7 @@ var playerX = new player("X",1);
 var playerO = new player("O",0);
 var index = 0;
 var player = [];
+var input = [a1=[1,1],a2=[1,2],a3=[1,3],a4=[2,1],a5=[2,2],a6=[2,3],a7=[3,1],a8=[3,2],a9=[3,3]]
 
 ///changing turn
 
@@ -76,16 +77,14 @@ var changeTurn = function(index){
 
 
 
-////front end
 
+///main function
 var execute = function(value) {
 
   player = changeTurn(index);
   index = player.mark[1];
 
   board[value] = player.mark[0];
-
-  $("#result").append(player.mark[0]+" turn "+board);
 
   winning(board,player.mark[0]);
 
@@ -96,123 +95,84 @@ var execute = function(value) {
 
 
 //clicking function
+var calculate = function(i) {
+  var valueColRow = input[i-1];
+  var value = XY(valueColRow[1],valueColRow[0])
+  if(board[value] === 0){
+    var result = execute(value);
+    if(result === "X"){
+      $("#box"+i).addClass("resultX");
+      toggleTurn();
+    } else if(result === "O"){
+      $("#box"+i).addClass("resultO");
+      toggleTurn();
+    }
+  }
+}
+
+
+//remove class
+var remove = function(){
+  for(i = 1; i < 10; i++){
+    $("#box"+i).removeClass("resultX");
+    $("#box"+i).removeClass("resultO");
+    $("#blue").show();
+    $("#red").hide();
+  }
+}
+
+//toggle turn
+var toggleTurn= function(){
+  $("#blue").toggle();
+  $("#red").toggle();
+}
+
+
+//front end
+
 $(document).ready(function() {
   $("#box1").click(function() {
-    var inputCol = 1;
-    var inputRow = 1;
-    var value = XY(inputCol,inputRow)
-    if(board[value] === 0){
-      var result = execute(value);
-      if(result === "X"){
-        $("#box1").addClass("resultX");
-      } else if(result === "O"){
-        $("#box1").addClass("resultO");
-      }
-    }
+    var deter = 1;
+    calculate(deter);
   })
-
   $("#box2").click(function() {
-    var inputCol = 2;
-    var inputRow = 1;
-    var value = XY(inputCol,inputRow)
-    if(board[value] === 0){
-      var result = execute(value);
-      if(result === "X"){
-        $("#box2").addClass("resultX");
-      } else if(result === "O"){
-        $("#box2").addClass("resultO");
-      }
-    }
+    var deter = 2;
+    calculate(deter);
   })
   $("#box3").click(function() {
-    var inputCol = 3;
-    var inputRow = 1;
-    var value = XY(inputCol,inputRow)
-    if(board[value] === 0){
-      var result = execute(value);
-      if(result === "X"){
-        $("#box3").addClass("resultX");
-      } else if(result === "O"){
-        $("#box3").addClass("resultO");
-      };
-    }
+    var deter = 3;
+    calculate(deter);
   })
   $("#box4").click(function() {
-    var inputCol = 1;
-    var inputRow = 2;
-    var value = XY(inputCol,inputRow)
-    if(board[value] === 0){
-      var result = execute(value);
-      if(result === "X"){
-        $("#box4").addClass("resultX");
-      } else if(result === "O"){
-        $("#box4").addClass("resultO");
-      }
-    }
+    var deter = 4;
+    calculate(deter);
   })
   $("#box5").click(function() {
-    var inputCol = 2;
-    var inputRow = 2;
-    var value = XY(inputCol,inputRow)
-    if(board[value] === 0){
-      var result = execute(value);
-      if(result === "X"){
-        $("#box5").addClass("resultX");
-      } else if(result === "O"){
-        $("#box5").addClass("resultO");
-      }
-    }
+    var deter = 5;
+    calculate(deter);
   })
   $("#box6").click(function() {
-    var inputCol = 3;
-    var inputRow = 2;
-    var value = XY(inputCol,inputRow)
-    if(board[value] === 0){
-      var result = execute(value);
-      if(result === "X"){
-        $("#box6").addClass("resultX");
-      } else if(result === "O"){
-        $("#box6").addClass("resultO");
-      }
-    }
+    var deter = 6;
+    calculate(deter);
   })
   $("#box7").click(function() {
-    var inputCol = 1;
-    var inputRow = 3;
-    var value = XY(inputCol,inputRow)
-    if(board[value] === 0){
-      var result = execute(value);
-      if(result === "X"){
-        $("#box7").addClass("resultX");
-      } else if(result === "O"){
-        $("#box7").addClass("resultO");
-      }
-    }
+    var deter = 7;
+    calculate(deter);
   })
   $("#box8").click(function() {
-    var inputCol = 2;
-    var inputRow = 3;
-    var value = XY(inputCol,inputRow)
-    if(board[value] === 0){
-      var result = execute(value);
-      if(result === "X"){
-        $("#box8").addClass("resultX");
-      } else if(result === "O"){
-        $("#box8").addClass("resultO");
-      }
-    }
+    var deter = 8;
+    calculate(deter);
   })
   $("#box9").click(function() {
-    var inputCol = 3;
-    var inputRow = 3;
-    var value = XY(inputCol,inputRow)
-    if(board[value] === 0){
-      var result = execute(value);
-      if(result === "X"){
-        $("#box9").addClass("resultX");
-      } else if(result === "O"){
-        $("#box9").addClass("resultO");
-      }
-    }
+    var deter = 9;
+    calculate(deter);
+  })
+
+  $("#restart").click(function() {
+    board = [0,0,0
+            ,0,0,0
+            ,0,0,0]
+    index = 0;
+    remove();
   })
 })
