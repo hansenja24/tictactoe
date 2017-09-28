@@ -92,8 +92,6 @@ var execute = function(value) {
 
   winning(board,player.mark[0]);
 
-  $("input#column").val("")
-  $("input#row").val("")
   return player.mark[0]
 }
 
@@ -107,15 +105,44 @@ var calculate = function(i) {
       var result = execute(value);
       if(result === "X"){
         $("#box"+i).addClass("resultX");
-        toggleTurn();
-      } else if(result === "O"){
-        $("#box"+i).addClass("resultO");
-        toggleTurn();
+        if(stop === false){
+          toggleTurn();
+        }
       }
+    }
+    if(stop === false){
+      botTurn();
     }
   }
 }
 
+//bot random
+var botRandom = function(){
+  var i = Math.floor(Math.random()*9);
+  return i
+
+}
+
+//botTurn
+
+var botTurn = function(){
+  debugger;
+  if(index === 1){
+    var randomNum = botRandom();
+    while(board[randomNum] != "0"){
+      randomNum = botRandom();
+    }
+  }
+  player = changeTurn(index);
+  index = player.mark[1];
+  board[randomNum] = player.mark[0];
+  winning(board,player.mark[0]);
+
+  if(player.mark[0] === "O"){
+   $("#box"+(randomNum+1)).addClass("resultO");
+   toggleTurn();
+ }
+}
 
 //remove class
 var remove = function(){
@@ -129,10 +156,8 @@ var remove = function(){
 
 //toggle turn
 var toggleTurn= function(){
-  if(stop === false){
-    $("#blue").toggle();
-    $("#red").toggle();
-  }
+  $("#blue").toggle();
+  $("#red").toggle();
 }
 
 
